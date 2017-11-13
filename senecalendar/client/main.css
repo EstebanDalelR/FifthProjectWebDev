@@ -1,1 +1,28 @@
 /* CSS declarations go here */
+.calendar{
+	margin-top: 4%;
+	margin-bottom: 4%;
+}
+
+.calendar-title{
+	background-color: yellow;
+	text-align: center;
+	color: black;
+}
+
+.calendar-title h1{
+	margin-bottom: 0px !important;
+}
+
+.calendar-nav{
+	display: flex;
+}
+
+.calendar-week{
+	text-align: center;
+	background-color: gray;
+}
+
+.calendar-week h4{
+	margin-bottom: 0px !important;
+}

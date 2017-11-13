@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from './navigation/Navbar.jsx';
+import Calendar from './calendar/Calendar.jsx';
 
 class App extends Component {
 
@@ -8,6 +9,7 @@ class App extends Component {
     return (
 	    <div>
 	    	<Navbar></Navbar>
+	    	<Calendar></Calendar>
 	    </div>
     );
   }
