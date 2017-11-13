@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
 class Navbar extends Component {
 
 	constructor(props){
@@ -22,6 +24,9 @@ class Navbar extends Component {
 					</li>
 					<li className="nav-item active">
 						<a className="nav-link" href="#">Calendario <span className="sr-only">(current)</span></a>
+					</li>
+					<li className="nav-item active">
+						<AccountsUIWrapper></AccountsUIWrapper>
 					</li>
 					{/*<li className="nav-item dropdown">
 						<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
