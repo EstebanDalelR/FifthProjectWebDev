@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
+import { isNullOrUndefined } from 'util';
  
 if(meteor.isServer){
   Meteor.methods({
@@ -13,6 +14,15 @@ if(meteor.isServer){
       Meteor.users.update(userId, {
         $set: { calendarId: calendarId }
       });
+    },
+    'users.checkAvailable'(userId, invitedUserId){
+      const user = Meteor.users.findOne(userId);
+      const invited = Meteor.users.findOne(invitedUserId);
+
+      if(invited.isNullOrUndefined){
+        throw new Meteor.Error('users.checkAvailable.invitedDoesNotExist','The invited user does not exist'); 
+      }
+      
     }
   });
 }
