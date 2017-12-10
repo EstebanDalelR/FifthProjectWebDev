@@ -5,12 +5,11 @@ class Calendar extends Component {
 
 	componentDidMount(){
 		$( '#events-calendar' ).fullCalendar({
-	        /* Quitar comentarios al tener un menor manejo del API. Los campos han sido quitados por seguridad
 	        googleCalendarApiKey: '',
 	        events: {
 	            googleCalendarId: '',
 	            className: 'gcal-event'
-	        }*/
+	        }
 	    });
 	}
 	

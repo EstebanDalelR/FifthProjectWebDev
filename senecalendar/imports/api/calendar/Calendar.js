@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 	Meteor.methods({
 		'calendar.getUserCalendar'({
 			}){
-			Questions.insert({
+			Calendar.insert({
 				title:title,
 				postedat:postedat,
 				theme:theme,
