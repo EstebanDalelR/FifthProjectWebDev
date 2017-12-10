@@ -4,15 +4,16 @@ import { Template } from 'meteor/templating';
 class Calendar extends Component {
 
 	componentDidMount(){
+		var calendarId = (Meteor.user())?Meteor.user().calendarId:-1;
 		$( '#events-calendar' ).fullCalendar({
 	        googleCalendarApiKey: '',
 	        events: {
-	            googleCalendarId: '',
+	            googleCalendarId: calendarId,
 	            className: 'gcal-event'
 	        }
 	    });
 	}
-	
+
   	render() {
     	return (
       		<div className="container calendar">

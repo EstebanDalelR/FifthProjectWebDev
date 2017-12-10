@@ -6,43 +6,12 @@ class AddCalendar extends Component {
 
   constructor(props){
     super(props);
-    this.state = {calendarList:undefined};
-  }
-
-  getUserCalendars(){
-    var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
-    var options = {
-      'headers' : {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + Meteor.user().services.google.accessToken,
-        'X-JavaScript-User-Agent': "Google APIs Explorer"
-      },
-      'params' : {
-        maxResults : 25
-      }
-    };
-    var calendarList = HTTP.get(url, options, (error, result)=>{
-      console.log('error: ', error);
-      console.log('result: ', result);
-      if(!error){
-        return result;
-      }else{
-        return 'Error getting calendars: '+error;
-      }
-    });
-    this.state.calendarList = calendarList;
-  }
-
-  componentWillUpdate(){
-    if(Meteor.user().calendar == -1){
-      this.getUserCalendars();
-    }
   }
 
   renderCalendarPicker(){
     if(Meteor.user().calendar == -1){
-      if(this.state.calendarList){
-        var calendarList = this.state.calendarList.data.items;
+      if(this.props.calendarList != ' '){
+        var calendarList = this.props.calendarList.data.items;
         var nameList = calendarList.map((d)=>{
           return d.resume;
         })
@@ -56,6 +25,8 @@ class AddCalendar extends Component {
             </div>
           </div>
         );
+      }else{
+        return <button onClick={()=>{this.props.getUserCalendars()}}>Buscar Calendarios</button>
       }
     }else{
       return(
@@ -72,11 +43,9 @@ class AddCalendar extends Component {
   render() {
     return (
       <div className="container">
-        <form>
           <h2>Añadir un Calendario:</h2>
           <p>Para añadir un calendario este debe ser público en la página de Google Calendar.</p>
           {(Meteor.user())?this.renderCalendarPicker():<p>Inicia sesión con google para ver más opciones sobre este calendario.</p>}
-        </form>
       </div>
     );
   }
