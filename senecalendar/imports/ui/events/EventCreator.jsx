@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+ximport ReactDOM from 'react-dom';
 import { HTTP } from 'meteor/http';
+
 // https://www.npmjs.com/package/react-dates
 // https://www.npmjs.com/package/react-datepicker
 class EventCreator extends Component {
@@ -22,9 +24,7 @@ createNewEvent(){
             'dateTime': '2015-05-28T17:00:00-07:00',
             'timeZone': 'America/Los_Angeles',
         },
-        // 'recurrence': [
-        //     'RRULE:FREQ=DAILY;COUNT=2'
-        // ],
+
         'attendees': [
             { 'email': 'lpage@example.com' },
             { 'email': 'sbrin@example.com' },

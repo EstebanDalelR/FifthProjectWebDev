@@ -9,61 +9,31 @@ class AddCalendar extends Component {
     this.state = {calendarList:undefined};
   }
 
-  getUserCalendars(){
-    var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
-    var options = {
-      'headers' : {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + Meteor.user().services.google.accessToken,
-        'X-JavaScript-User-Agent': "Google APIs Explorer"
-      },
-      'params' : {
-        maxResults : 25
-      }
-    };
-    var calendarList = HTTP.get(url, options, (error, result)=>{
-      console.log('error: ', error);
-      console.log('result: ', result);
-      if(!error){
-        return result;
-      }else{
-        return 'Error getting calendars: '+error;
-      }
-    });
-    this.state.calendarList = calendarList;
-  }
-
-  componentWillUpdate(){
-    if(Meteor.user().calendar == -1){
-      this.getUserCalendars();
-    }
-  }
-
   renderCalendarPicker(){
-    if(Meteor.user().calendar == -1){
-      if(this.state.calendarList){
-        var calendarList = this.state.calendarList.data.items;
-        var nameList = calendarList.map((d)=>{
-          return d.resume;
-        })
+    if(Meteor.user().calendarId == 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'){
+      if(this.props.calendarList != ' '){
+        var calendarList = this.props.calendarList.data.items;
         return(
           <div className="calendar-picker">
             <h4>A continuación puedes seleccionar un calendario para sincronizar con nuestra App:</h4>
             <div>
-              {nameList.map((d)=>{
-                return <p>{d}</p>
+              {calendarList.map((d, i)=>{
+                return <button key={i} onClick={()=>{this.props.selectCalendar(d)}}>{d.summary}</button>
               })}
             </div>
           </div>
         );
+      }else{
+        return <button onClick={()=>{this.props.getUserCalendars()}}>Buscar Calendarios</button>
       }
     }else{
+      var calendarName = (Meteor.user().calendarData)?Meteor.user().calendarData.summary:'Tu calendario no tiene nombre';
       return(
         <div className="calendar-picker">
           <p>Este es tu calendario actual:</p>
-          <h4>{Meteor.user().calendar}</h4>
+          <h4>{calendarName}</h4>
           <p>Para desvincular este calendario haz click aquí</p>
-          <button>Desvincular</button>
+          <button onClick={()=>{this.props.removeCalendar()}}>Desvincular</button>
         </div>
       );
     }
@@ -72,11 +42,9 @@ class AddCalendar extends Component {
   render() {
     return (
       <div className="container">
-        <form>
           <h2>Añadir un Calendario:</h2>
           <p>Para añadir un calendario este debe ser público en la página de Google Calendar.</p>
           {(Meteor.user())?this.renderCalendarPicker():<p>Inicia sesión con google para ver más opciones sobre este calendario.</p>}
-        </form>
       </div>
     );
   }
