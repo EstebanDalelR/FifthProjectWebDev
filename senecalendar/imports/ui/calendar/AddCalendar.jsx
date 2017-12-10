@@ -9,15 +9,15 @@ class AddCalendar extends Component {
   }
 
   renderCalendarPicker(){
-    if(Meteor.user().calendar == -1){
+    if(Meteor.user().calendarId == -1){
       if(this.props.calendarList != ' '){
         var calendarList = this.props.calendarList.data.items;
         return(
           <div className="calendar-picker">
             <h4>A continuación puedes seleccionar un calendario para sincronizar con nuestra App:</h4>
             <div>
-              {calendarList.map((d)=>{
-                return <button>{d.summary}</button>
+              {calendarList.map((d, i)=>{
+                return <button key={i} onClick={()=>{this.props.selectCalendar(d)}}>{d.summary}</button>
               })}
             </div>
           </div>
@@ -26,12 +26,13 @@ class AddCalendar extends Component {
         return <button onClick={()=>{this.props.getUserCalendars()}}>Buscar Calendarios</button>
       }
     }else{
+      var calendarName = (Meteor.user().calendarData)?Meteor.user().calendarData.summary:'Un nombre cualquiera';
       return(
         <div className="calendar-picker">
           <p>Este es tu calendario actual:</p>
-          <h4>{Meteor.user().calendar}</h4>
+          <h4>{calendarName}</h4>
           <p>Para desvincular este calendario haz click aquí</p>
-          <button>Desvincular</button>
+          <button onClick={()=>{this.props.removeCalendar()}}>Desvincular</button>
         </div>
       );
     }

@@ -14,9 +14,8 @@ if(Meteor.isServer){
       user.name=user.username;
       user.isGoogle=false;
     }
-    user.calendar  = -1;
-    user.calendarName = ''; 
-    user.calendarKey  = '';
+    user.calendarId  = -1;
+    user.calendarData = ' ';
     // We still want the default hook's 'profile' behavior.
     if (options.profile) {
       user.profile = options.profile;
@@ -29,18 +28,21 @@ if(Meteor.isServer){
 Meteor.publish('user',
   function(){
     return Meteor.users.find(this.userId,
-      {fields: {name: 1,email: 1,picture: 1,isGoogle: 1,profile: 1, calendar: 1, calendarName: 1, services: 1}});
+      {fields: {name: 1,email: 1,picture: 1,isGoogle: 1,profile: 1, calendarId: 1, calendarData: 1, services: 1}});
   }
 );
 
 Meteor.methods({
-  'users.setCalendar'({ userId, calendarId }) {
-    new SimpleSchema({
-      userId: { type: String }
-    }).validate({ userId });
+  'users.setCalendar'({ userId, calendarId , calendarData}) {
     const user = Meteor.users.findOne(userId);
     Meteor.users.update(userId, {
-      $set: { calendar: calendarId }
+      $set: { calendarId: calendarId , calendarData: calendarData}
     });
+  },
+  'users.removeCalendar'({ userId }){
+    const user = Meteor.users.findOne(userId);
+    Meteor.users.update(userId, {
+      $set: { calendarId:-1 , calendarData: ' '}
+    })
   }
 });

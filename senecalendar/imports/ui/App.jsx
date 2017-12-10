@@ -35,11 +35,41 @@ class App extends Component {
 			});
 	}
 
+	selectCalendar(cdata){
+		Meteor.call('users.setCalendar',{
+			userId:Meteor.user()._id,
+			calendarId:cdata.id,
+			calendarData:cdata
+		}, (err, res) => {
+		  if (err) {
+		    console.log(err);
+		  } else {
+		    // success!
+		  }
+		});
+	}
+
+	removeCalendar(){
+		Meteor.call('users.removeCalendar',{
+			userId:Meteor.user()._id
+		}, (err, res)=>{
+			if(err){
+				console.log(err);
+			}else{
+				// success!
+			}
+		});
+	}
+
 	render() {
 	    return (
 		    <div>
 		    	<Navbar></Navbar>
-		    	<AddCalendar calendarList = {this.state.calendarList} getUserCalendars = {this.getUserCalendars.bind(this)}></AddCalendar>
+		    	<AddCalendar selectCalendar = {this.selectCalendar.bind(this)} 
+		    		removeCalendar = {this.removeCalendar.bind(this)}
+		    		calendarList = {this.state.calendarList} 
+		    		getUserCalendars = {this.getUserCalendars.bind(this)}>
+		    	</AddCalendar>
 		    	<Calendar></Calendar>
 		    </div>
 	    );
