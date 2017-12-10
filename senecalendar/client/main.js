@@ -4,6 +4,9 @@ import { render } from 'react-dom';
 
 import App from '../imports/ui/App.jsx';
 
+import '../imports/startup/accounts-config.js';
+import '../imports/api/calendar/Calendar.js';
+
 Meteor.startup(() => {
 
   render(<App />, document.getElementById('render-target'));
