@@ -11,7 +11,9 @@ class App extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = {calendarList:' '};
+		this.state = {
+			calendarList:' '
+		};
 	}
 
 	getUserCalendars(){
@@ -19,7 +21,7 @@ class App extends Component {
 			var options = {
 					'headers' : {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + Meteor.user().services.google.accessToken,
+						'Authorization': 'Bearer ' + this.props.currentUser.services.google.accessToken,
 						'X-JavaScript-User-Agent': "Google APIs Explorer"
 					},
 					'params' : {
@@ -37,7 +39,7 @@ class App extends Component {
 
 	selectCalendar(cdata){
 		Meteor.call('users.setCalendar',{
-			userId:Meteor.user()._id,
+			userId:this.props.currentUser._id,
 			calendarId:cdata.id,
 			calendarData:cdata
 		}, (err, res) => {
@@ -51,7 +53,7 @@ class App extends Component {
 
 	removeCalendar(){
 		Meteor.call('users.removeCalendar',{
-			userId:Meteor.user()._id
+			userId:this.props.currentUser._id
 		}, (err, res)=>{
 			if(err){
 				console.log(err);
@@ -70,7 +72,9 @@ class App extends Component {
 		    		calendarList = {this.state.calendarList} 
 		    		getUserCalendars = {this.getUserCalendars.bind(this)}>
 		    	</AddCalendar>
-		    	<Calendar></Calendar>
+		    	<Calendar calendarId={(this.props.currentUser.calendarId)?this.props.currentUser.calendarId:'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'}
+		    		currentUser={this.props.currentUser}>
+		    	</Calendar>
 		    </div>
 	    );
 	}

@@ -9,7 +9,7 @@ class AddCalendar extends Component {
   }
 
   renderCalendarPicker(){
-    if(Meteor.user().calendarId == -1){
+    if(Meteor.user().calendarId == 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'){
       if(this.props.calendarList != ' '){
         var calendarList = this.props.calendarList.data.items;
         return(
@@ -26,7 +26,7 @@ class AddCalendar extends Component {
         return <button onClick={()=>{this.props.getUserCalendars()}}>Buscar Calendarios</button>
       }
     }else{
-      var calendarName = (Meteor.user().calendarData)?Meteor.user().calendarData.summary:'Un nombre cualquiera';
+      var calendarName = (Meteor.user().calendarData)?Meteor.user().calendarData.summary:'Tu calendario no tiene nombre';
       return(
         <div className="calendar-picker">
           <p>Este es tu calendario actual:</p>

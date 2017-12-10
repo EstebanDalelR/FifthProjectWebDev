@@ -3,12 +3,19 @@ import { Template } from 'meteor/templating';
 
 class Calendar extends Component {
 
+	constructor(props){
+		super(props);
+	}
+
+	componentDidUpdate(){
+		$( '#events-calendar' ).fullCalendar('refetchEvents');
+	}
+
 	componentDidMount(){
-		var calendarId = (Meteor.user())?Meteor.user().calendarId:-1;
 		$( '#events-calendar' ).fullCalendar({
 	        googleCalendarApiKey: '',
 	        events: {
-	            googleCalendarId: calendarId,
+	            googleCalendarId: this.props.calendarId,
 	            className: 'gcal-event'
 	        }
 	    });
@@ -17,7 +24,7 @@ class Calendar extends Component {
   	render() {
     	return (
       		<div className="container calendar">
-      			<div className="calendar-title"><h1>Calendar Title</h1></div>
+      			<div className="calendar-title"><h1>{}</h1></div>
       			<div className="calendar-container">
 					<div id="events-calendar"></div>
       			</div>

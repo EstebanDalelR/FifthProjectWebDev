@@ -14,7 +14,7 @@ if(Meteor.isServer){
       user.name=user.username;
       user.isGoogle=false;
     }
-    user.calendarId  = -1;
+    user.calendarId  = 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com';
     user.calendarData = ' ';
     // We still want the default hook's 'profile' behavior.
     if (options.profile) {
