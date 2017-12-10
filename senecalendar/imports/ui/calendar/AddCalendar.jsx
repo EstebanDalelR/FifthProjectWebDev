@@ -12,15 +12,12 @@ class AddCalendar extends Component {
     if(Meteor.user().calendar == -1){
       if(this.props.calendarList != ' '){
         var calendarList = this.props.calendarList.data.items;
-        var nameList = calendarList.map((d)=>{
-          return d.resume;
-        })
         return(
           <div className="calendar-picker">
             <h4>A continuación puedes seleccionar un calendario para sincronizar con nuestra App:</h4>
             <div>
-              {nameList.map((d)=>{
-                return <p>{d}</p>
+              {calendarList.map((d)=>{
+                return <button>{d.summary}</button>
               })}
             </div>
           </div>
