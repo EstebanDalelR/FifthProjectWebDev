@@ -16,11 +16,14 @@ class EventCreator extends Component {
         // var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.props.currentUser.calendarId + "/events";
         // var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.getUserCalendars.data.items[0].id + "/events";
         //freeBusy api https://www.googleapis.com/calendar/v3/freeBusy
+        //if(invitee tiene cuenta)> hacer el freebusycon su calendario>responder con la disponibilidad
+        
         var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.props.currentUser.calendarId + "/events/quickAdd?text=" + textToSend;
         const timezone = "America/Bogota";
+        let invitee = ReactDOM.findDOMNode(this.refs.invitedPerson).value.trim();
         let textToSend = ReactDOM.findDOMNode(this.refs.eventTitle).value.trim();
-        let endDateTime= ReactDOM.findDOMNode(this.refs.eventEndDate).value.trim());
-        let startDateTime= ReactDOM.findDOMNode(this.refs.eventStartDate).value.trim());
+        let endDateTime = ReactDOM.findDOMNode(this.refs.eventEndDate).value.trim();
+        let startDateTime = ReactDOM.findDOMNode(this.refs.eventStartDate).value.trim();
         // {
         //     "end": {
         //       "dateTime": "2017-12-28T09:00:00",
@@ -54,20 +57,20 @@ class EventCreator extends Component {
 
         return (
             <div className=" rounded border border-secondary">
-                <h4>¿Quieres invitar a alguien?</h4>
+                <h5>¿Quieres invitar a alguien?</h5>
                 <input
                     className="container-fluid border"
                     type="email"
                     ref="invitedPerson"
                 />
-                <h4>¿Qué van a hacer?</h4>
+                <h5>¿Qué van a hacer?</h5>
                 <input
                     className="container-fluid border"
                     type="text"
                     ref="eventTitle"
                     placeholder="Tarea de WEB"
                 />
-                <h4>¿Dónde se van a ver?</h4>
+                <h5>¿Dónde se van a ver?</h5>
                 <input
                     className="container-fluid border"
                     type="text"
@@ -144,7 +147,7 @@ class EventCreator extends Component {
                     <option value='Y' />
                     <option value='Z' />
                 </datalist>
-                <h4>¿Cuándo empieza?</h4>
+                <h5>¿Cuándo empieza?</h5>
                 <input
                     className="container-fluid border"
                     type="datetime-local"
@@ -152,7 +155,7 @@ class EventCreator extends Component {
                     min={today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + "T08:30"}
                     required
                 />
-                <h4>¿Cuándo termina?</h4>
+                <h5>¿Cuándo termina?</h5>
                 <input
                     className="container-fluid border"
                     type="datetime-local"
@@ -160,7 +163,17 @@ class EventCreator extends Component {
                     min={today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + "T08:30"}
                     required
                 />
-                <button type="submit" onClick={() => { this.postToCalendar() }}>Agregar evento</button>
+                <button
+                    className="btn btn-success"
+                    type="submit"
+                    onClick={() => { this.postToCalendar() }}>
+                    Agregar evento
+                </button>
+                <input 
+                className="btn btn-warning"
+                type="reset" 
+                value="Borrar"
+                />
             </div>
         );
     }
