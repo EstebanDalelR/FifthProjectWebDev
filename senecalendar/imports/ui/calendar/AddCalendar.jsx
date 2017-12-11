@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { HTTP } from 'meteor/http';
+
+import EventCreator from '../events/EventCreator.jsx';
+
 // https://www.npmjs.com/package/react-dates
 // https://www.npmjs.com/package/react-datepicker
 class AddCalendar extends Component {
@@ -44,6 +47,7 @@ class AddCalendar extends Component {
       <div className="container">
           <h2>Añadir un Calendario:</h2>
           <p>Para añadir un calendario este debe ser público en la página de Google Calendar.</p>
+          <EventCreator/>
           {(Meteor.user())?this.renderCalendarPicker():<p>Inicia sesión con google para ver más opciones sobre este calendario.</p>}
       </div>
     );

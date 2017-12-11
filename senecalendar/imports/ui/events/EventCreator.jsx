@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-ximport ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { HTTP } from 'meteor/http';
 
 // https://www.npmjs.com/package/react-dates
@@ -8,98 +8,127 @@ class EventCreator extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { calendarList: undefined };
+        //this.state = props;
     }
-}
-createNewEvent(){
-    var event = {
-        'summary': 'Google I/O 2015',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
-        'start': {
-            'dateTime': '2015-05-28T09:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
-        },
-        'end': {
-            'dateTime': '2015-05-28T17:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
-        },
 
-        'attendees': [
-            { 'email': 'lpage@example.com' },
-            { 'email': 'sbrin@example.com' },
-        ],
-        'reminders': {
-            'useDefault': false,
-            'overrides': [
-                { 'method': 'email', 'minutes': 24 * 60 },
-                { 'method': 'popup', 'minutes': 10 },
-            ],
-        },
-    };
 
-    calendar.events.insert({
-        auth: auth,
-        calendarId: 'primary',
-        resource: event,
-    }, function (err, event) {
-        if (err) {
-            console.log('There was an error contacting the Calendar service: ' + err);
-            return;
+
+    // Make sure the client is loaded and sign-in is complete before calling this method.
+    // execute() {
+    //     return gapi.client.calendar.events.insert({
+    //         "calendarId": "b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com",
+    //         "resource": {
+    //             "start": {
+    //                 "dateTime": "2017-12-28T09:00:00-07:00"
+    //             },
+    //             "end": {
+    //                 "dateTime": "2017-12-28T09:00:00-09:00"
+    //             }
+    //         }
+    //     })
+    //         .then(function (response) {
+    //             // Handle the results here (response.result has the parsed body).
+    //             console.log("Response", response);
+    //         }, function (error) {
+    //             console.error("Execute error", error);
+    //         });
+    // }
+
+    // getUserCalendars() {
+    //     var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.state.calendar.calendarId + '/events';
+    //     var options = {
+    //         'headers': {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': 'Bearer ' + this.props.currentUser.services.google.accessToken,
+    //             'X-JavaScript-User-Agent': "Google APIs Explorer"
+    //         },
+    //         'params': {
+    //             maxResults: 25
+    //         }
+    //     };
+    //     HTTP.get(url, options, (error, result) => {
+    //         if (!error) {
+    //             this.setState(() => { return { calendarList: result } });
+    //         } else {
+    //             error = 'Error getting calendars: ' + error;
+    //         }
+    //     });
+    // }
+    renderNewEventForm() {
+        if (calendarList == undefined) {
+            return (<h3>Debes estar loggeado para invitar a un evento</h3>);
+        } else {
+            return (
+                <div>
+                    <div className=" rounded border border-secondary">
+                        <h4>¿A quién quieres invitar?</h4>
+                        <input
+                            className="container-fluid border"
+                            type="text"
+                            ref="invitedPerson"
+                        />
+                        <h4>¿Qué van a hacer?</h4>
+                        <input
+                            className="container-fluid border"
+                            type="text"
+                            ref="eventTitle"
+                        />
+                        <h4>¿Dónde se van a ver?</h4>
+                        <input
+                            className="container-fluid border"
+                            type="text"
+                            ref="eventLocation"
+                        />
+                        <h4>¿Cuándo empieza?</h4>
+                        <input
+                            className="container-fluid border"
+                            type="text"
+                            ref="eventStartDate"
+                        />
+                        <h4>¿Cuándo termina?</h4>
+                        <input
+                            className="container-fluid border"
+                            type="text"
+                            ref="eventEndDate"
+                        />
+                    </div>
+                    <button className='btn-primary btn-lg'
+                        onClick={this.handleSubmit.bind(this)}>
+                        Preguntar
+                </button>
+                </div>
+            );
         }
-        console.log('Event created: %s', event.htmlLink);
-    });
-
-}
-renderNewEventForm(){
-    if (calendarList == undefined) {
-        return (<h3>Debes estar loggeado para invitar a un evento</h3>);
-    } else {
+    }
+    handleClick() {
+        console.log("click");
+        console.log(this.props.currentUser);
+        // var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
+        // var options = {
+            // 'headers': {
+                // 'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + this.props.currentUser.currentUser.services.google.accessToken,
+                // 'X-JavaScript-User-Agent': "Google APIs Explorer"
+            // },
+            // 'params': {
+                // maxResults: 25
+            // }
+        // };
+        // HTTP.get(url, options, (error, result) => {
+            // if (!error) {
+                // console.log("calendarList" + result);
+            // } else {
+                // error = 'Error getting calendars: ' + error;
+            // }
+        // });
+    }
+    render() {
         return (
             <div>
-                <div className=" rounded border border-secondary">
-                    <h4>¿A quién quieres invitar?</h4>
-                    <input
-                        className="container-fluid border"
-                        type="text"
-                        ref="invitedPerson"
-                    />
-                    <h4>¿Qué van a hacer?</h4>
-                    <input
-                        className="container-fluid border"
-                        type="text"
-                        ref="eventTitle"
-                    />
-                    <h4>¿Dónde se van a ver?</h4>
-                    <input
-                        className="container-fluid border"
-                        type="text"
-                        ref="eventLocation"
-                    />
-                    <h4>¿Cuándo empieza?</h4>
-                    <input
-                        className="container-fluid border"
-                        type="text"
-                        ref="eventStartDate"
-                    />
-                    <h4>¿Cuándo termina?</h4>
-                    <input
-                        className="container-fluid border"
-                        type="text"
-                        ref="eventEndDate"
-                    />
-                </div>
-                <button className='btn-primary btn-lg'
-                    onClick={this.handleSubmit.bind(this)}>
-                    Preguntar
-                </button>
+                <button onClick={()=>this.handleClick}>Agregar evento</button>
             </div>
-        )
+        );
     }
-}
-render(){
-    <div>
-        <button>Agregar evento</button>
-    </div>
+
 }
 export default EventCreator;
