@@ -10,17 +10,41 @@ class Calendar extends Component {
 	}
 
 	componentDidUpdate() {
-		$('#events-calendar').fullCalendar('refetchEvents');
+		if(this.props.calendarId != 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'){
+			$('#events-calendar').fullCalendar('destroy');
+			$('#events-calendar').fullCalendar({
+				googleCalendarApiKey: 'AIzaSyBE6yzd86yNAUL6BO9auKqQXE4ijwXUucI',
+				eventSources:[
+		            {
+		                googleCalendarId: 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'
+		            },
+					{
+						googleCalendarId: this.props.calendarId
+					}
+				]
+			});
+		}else{
+			$('#events-calendar').fullCalendar('destroy');
+			$('#events-calendar').fullCalendar({
+				googleCalendarApiKey: 'AIzaSyBE6yzd86yNAUL6BO9auKqQXE4ijwXUucI',
+			   	eventSources: [
+		            {
+		                googleCalendarId: 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'
+		            }
+	        	]
+	    	});
+		}
 	}
 
 	componentDidMount() {
 		$('#events-calendar').fullCalendar({
 			googleCalendarApiKey: 'AIzaSyBE6yzd86yNAUL6BO9auKqQXE4ijwXUucI',
-			events: {
-				googleCalendarId: this.props.calendarId,
-				className: 'gcal-event'
-			}
-		});
+		   	eventSources: [
+	            {
+	                googleCalendarId: 'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com'
+	            }
+        	]
+    	});
 	}
 
 	render() {
