@@ -44,5 +44,16 @@ Meteor.methods({
     Meteor.users.update(userId, {
       $set: { calendarId:-1 , calendarData: ' '}
     })
+  },
+  'users.checkAvailable'(userId, invitedUserId){
+    const user = Meteor.users.findOne(userId);
+    const invited = Meteor.users.findOne(invitedUserId);
+
+    if(invited.isNullOrUndefined){
+      throw new Meteor.Error('users.checkAvailable.invitedDoesNotExist','The invited user does not exist'); 
+    }else{
+      //fetch freeBusy gapi
+    }
   }
+
 });

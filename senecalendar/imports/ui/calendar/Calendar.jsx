@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Template } from 'meteor/templating';
 
+import EventCreator from '../events/EventCreator.jsx';
+
 class Calendar extends Component {
 
 	constructor(props){
