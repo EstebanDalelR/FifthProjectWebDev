@@ -102,7 +102,7 @@ class EventCreator extends Component {
     }
     handleClick() {
         console.log("click");
-        console.log(this.props);
+        console.log(this.props.currentUser);
         // var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
         // var options = {
             // 'headers': {
