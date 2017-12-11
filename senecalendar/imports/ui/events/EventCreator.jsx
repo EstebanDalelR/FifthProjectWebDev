@@ -100,32 +100,34 @@ class EventCreator extends Component {
             );
         }
     }
+    
     handleClick() {
         console.log("click");
         console.log(this.props);
-        // var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
-        // var options = {
-            // 'headers': {
-                // 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + this.props.currentUser.currentUser.services.google.accessToken,
-                // 'X-JavaScript-User-Agent': "Google APIs Explorer"
-            // },
-            // 'params': {
-                // maxResults: 25
-            // }
-        // };
-        // HTTP.get(url, options, (error, result) => {
-            // if (!error) {
-                // console.log("calendarList" + result);
-            // } else {
-                // error = 'Error getting calendars: ' + error;
-            // }
-        // });
+         var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
+         var options = {
+             'headers': {
+                 'Content-Type': 'application/json',
+                 'Authorization': 'Bearer ' + this.props.currentUser.services.google.accessToken,
+                 'X-JavaScript-User-Agent': "Google APIs Explorer"
+             },
+             'params': {
+                 maxResults: 25
+             }
+         };
+         HTTP.get(url, options, (error, result) => {
+             if (!error) {
+                 console.log("calendarList" + result);
+             } else {
+                 error = 'Error getting calendars: ' + error;
+             }
+        });
     }
+
     render() {
         return (
             <div>
-                <button onClick={this.handleClick}>Agregar evento</button>
+                <button onClick={()=>{this.handleClick()}}>Agregar evento</button>
             </div>
         );
     }
