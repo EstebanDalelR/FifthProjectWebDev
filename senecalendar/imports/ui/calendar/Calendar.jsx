@@ -15,7 +15,7 @@ class Calendar extends Component {
 
 	componentDidMount() {
 		$('#events-calendar').fullCalendar({
-			googleCalendarApiKey: '',
+			googleCalendarApiKey: 'AIzaSyBE6yzd86yNAUL6BO9auKqQXE4ijwXUucI',
 			events: {
 				googleCalendarId: this.props.calendarId,
 				className: 'gcal-event'
