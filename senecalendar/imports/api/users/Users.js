@@ -45,14 +45,15 @@ Meteor.methods({
       $set: { calendarId:'b6d4f2lpee67ih3q0a4k37cvb0@group.calendar.google.com' , calendarData: ' '}
     })
   },
-  'users.checkAvailable'(userId, invitedUserId) {
+  'users.checkAvailable'(userId, invitedUserId){
     const user = Meteor.users.findOne(userId);
     const invited = Meteor.users.findOne(invitedUserId);
 
-    if (invited.isNullOrUndefined) {
-      throw new Meteor.Error('users.checkAvailable.invitedDoesNotExist', 'The invited user does not exist');
+    if(invited.isNullOrUndefined){
+      throw new Meteor.Error('users.checkAvailable.invitedDoesNotExist','The invited user does not exist'); 
+    }else{
+      //fetch freeBusy gapi
     }
-
   }
 
 });
