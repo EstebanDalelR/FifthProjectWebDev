@@ -17,7 +17,7 @@ class EventCreator extends Component {
         // var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.getUserCalendars.data.items[0].id + "/events";
         //freeBusy api https://www.googleapis.com/calendar/v3/freeBusy
         //if(invitee tiene cuenta)> hacer el freebusycon su calendario>responder con la disponibilidad
-        
+
         var url = "https://www.googleapis.com/calendar/v3/calendars/" + this.props.currentUser.calendarId + "/events/quickAdd?text=" + textToSend;
         const timezone = "America/Bogota";
         let invitee = ReactDOM.findDOMNode(this.refs.invitedPerson).value.trim();
@@ -57,20 +57,22 @@ class EventCreator extends Component {
 
         return (
             <div className=" rounded border border-secondary">
-                <h5>¿Quieres invitar a alguien?</h5>
+                <label>¿Quieres invitar a alguien?
                 <input
                     className="container-fluid border"
                     type="email"
                     ref="invitedPerson"
                 />
-                <h5>¿Qué van a hacer?</h5>
+                </label>
+                <label>¿Qué van a hacer?
                 <input
                     className="container-fluid border"
                     type="text"
                     ref="eventTitle"
                     placeholder="Tarea de WEB"
                 />
-                <h5>¿Dónde se van a ver?</h5>
+                </label>
+                <label>¿Dónde se van a ver?
                 <input
                     className="container-fluid border"
                     type="text"
@@ -78,6 +80,7 @@ class EventCreator extends Component {
                     list="edificios"
                     placeholder="ML"
                 />
+                </label>
                 <datalist id="edificios">
                     <option value='A' />
                     <option value='Au' />
@@ -147,7 +150,7 @@ class EventCreator extends Component {
                     <option value='Y' />
                     <option value='Z' />
                 </datalist>
-                <h5>¿Cuándo empieza?</h5>
+                <label>¿Cuándo empieza?
                 <input
                     className="container-fluid border"
                     type="datetime-local"
@@ -155,7 +158,8 @@ class EventCreator extends Component {
                     min={today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + "T08:30"}
                     required
                 />
-                <h5>¿Cuándo termina?</h5>
+                </label>
+                <label>¿Cuándo termina?
                 <input
                     className="container-fluid border"
                     type="datetime-local"
@@ -163,6 +167,7 @@ class EventCreator extends Component {
                     min={today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + "T08:30"}
                     required
                 />
+                </label>
                 <button
                     className="btn btn-success"
                     type="submit"

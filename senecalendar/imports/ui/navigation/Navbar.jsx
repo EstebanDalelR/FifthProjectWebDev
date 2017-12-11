@@ -20,9 +20,6 @@ class Navbar extends Component {
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav mr-auto">
 					<li className="nav-item active">
-						<a className="nav-link" href="#">Mi Horario <span className="sr-only">(current)</span></a>
-					</li>
-					<li className="nav-item active">
 						<a className="nav-link" href="#">Calendario <span className="sr-only">(current)</span></a>
 					</li>
 					<li className="nav-item active">
@@ -31,6 +28,9 @@ class Navbar extends Component {
 					{/*<li className="nav-item dropdown">
 						<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Dropdown
+						<li className="nav-item active">
+							<a className="nav-link" href="#">Mi Horario <span className="sr-only">(current)</span></a>
+						</li>
 						</a>
 						<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a className="dropdown-item" href="#">Action</a>
