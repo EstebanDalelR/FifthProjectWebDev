@@ -102,7 +102,7 @@ class EventCreator extends Component {
     }
     handleClick() {
         console.log("click");
-        console.log(this.props.currentUser);
+        console.log(this.props);
         // var url = "https://www.googleapis.com/calendar/v3/users/me/calendarList";
         // var options = {
             // 'headers': {
@@ -125,7 +125,7 @@ class EventCreator extends Component {
     render() {
         return (
             <div>
-                <button onClick={()=>this.handleClick}>Agregar evento</button>
+                <button onClick={this.handleClick}>Agregar evento</button>
             </div>
         );
     }
